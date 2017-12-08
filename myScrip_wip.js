@@ -25,8 +25,10 @@ SOFTWARE. */
 
 $(document).ready(function() {
   var onBoard = [0, 1, 2, 3, 4, 5, 6, 7, 8],
-      uiSwoosh = $("<audio></audio>"),
-      uiScore = $(".score-board"),
+      uiScoreBoard = $(".score-board"),
+      uiSwoosh = $("<audio></audio>"), 
+      uiHuman = $(".player-hum"),
+      uiAi = $(".player-ai"),
       uiGameOver = $("#g-over"),
       uiPlayers = $(".players"),
       uiCurtain = $(".curtain"),
@@ -37,12 +39,12 @@ $(document).ready(function() {
       uiChoose = $(".choose"),
       uiOturn = $("#o-turn"),
       uiXturn = $("#x-turn"),
+      uiHumScore = $("#hum"),
+      uiAiScore = $("#ai"),
       uiCross = $(".cross"),
-      uiX = $(".player-x"),
-      uiO = $(".player-o"),
-      uiPlay = $(".play"),
       uiZero = $(".zero"),
-      uiCell = $(".cell"),
+      uiPlay = $(".play"),      
+      uiCell = $(".cell"),      
       cell = {
         "0": "#0",
         "1": "#1",
@@ -54,9 +56,8 @@ $(document).ready(function() {
         "7": "#7",
         "8": "#8"
       },
+      uiScore = 0,
       timeoutID,
-      xScore = 0,
-      oScore = 0,
       round = 0,
       human,
       ai;
@@ -85,7 +86,7 @@ $(document).ready(function() {
     uiOturn.hide();
     uiXturn.addClass("fade-in");
     uiSymbol.addClass("blink");
-    uiScore.removeClass("invisible");
+    uiScoreBoard.removeClass("invisible");
     uiPlayers.addClass("depress");
   });
 
@@ -103,27 +104,36 @@ $(document).ready(function() {
     uiXturn.hide();
     uiOturn.addClass("fade-in");
     uiSymbol.addClass("blink");
-    uiScore.removeClass("invisible");
+    uiScoreBoard.removeClass("invisible");
     uiPlayers.addClass("depress");
   });
-
+  
+ 
   // looping through cells based on id
   $.each(onBoard, function(i) {
-    var uiCells = $(cell[i]);
+    var uiCells = $(cell[i]);    
 
     uiCells.click(function() {
       if (uiCells.html() === "X" || uiCells.html() === "O") {
         //do nothing
       } else {
-        if (human === "X" || ai === "X") uiCells.addClass("player-color");
+        if (human === "X" || human === "O")
+          uiCells.addClass("player-color");
       }
       if (uiCells.html() === "X" || uiCells.html() === "O") {
         //do nothing
       } else {
         move(this, human);
-        uiXturn.hide();
-        uiOturn.addClass("fade-in");
-        uiOturn.show();
+        if (human === "X") {
+          uiXturn.hide();
+          uiOturn.addClass("fade-in");
+          uiOturn.show();
+        } else if (human === "O") {
+          uiXturn.show();
+          uiOturn.addClass("fade-in");
+          uiOturn.hide();
+        }
+        
       }
     });
   });
@@ -161,10 +171,28 @@ $(document).ready(function() {
       return false;
   }
   
-  //reset the game
+  //resets the game
   function reset() {
     round = 0;
     onBoard = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+    uiCell.html("");
+    uiCurtain.css("display", "block");
+    uiPlay.css("display", "block");
+    uiScreen.addClass("invisible");
+    uiScreen.css("height", "450px");
+    uiChoose.addClass("invisible");
+    uiCross.removeClass("left-slide-in");
+    uiZero.removeClass("right-slide-in");
+    uiCross.removeClass("left-slide-out");
+    uiZero.removeClass("right-slide-out");
+    uiCell.removeClass("visible");
+    uiCell.removeClass("player-color"); 
+    uiZero.removeClass("player-color");
+    uiCross.removeClass("player-color");    
+    uiXturn.hide();
+    uiOturn.hide();
+    uiGameOver.show();
+    uiGameOver.addClass("fade-in");
   }
 
   function move(el, player) {
@@ -194,14 +222,22 @@ $(document).ready(function() {
         function aiMove() {
           var selector = "#" + index;
           $(selector).html(ai);
-          uiXturn.show();
-          uiOturn.hide();
+          if (ai === "X") {
+            uiXturn.hide();
+            uiOturn.show();            
+          } else if (ai === "O") {
+            uiXturn.show();
+            uiOturn.hide();
+          }
+          
         }
-        timeoutID = window.setTimeout(aiMove, 500);
+        timeoutID = window.setTimeout(aiMove, 300);
         onBoard[index] = ai;
         if (winning(onBoard, ai)) {
           setTimeout(function() {
             alert("This time You Lost");
+            uiScore++;
+            uiAiScore.text(uiScore);
             reset();
           }, 600);
           return;
@@ -209,7 +245,7 @@ $(document).ready(function() {
       }
     }
   }
-
+  
   function empty(offBoard) {
     return offBoard.filter(c => c != human && c != ai);
   }
