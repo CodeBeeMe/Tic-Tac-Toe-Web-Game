@@ -1,0 +1,135 @@
+<!-- !Date:14.11.2017 Copyright ©2017 HTML code by Cătălin Anghel-Ursu @Madness2aMaze (https://codepen.io/Madness2aMaze)
+- All Rights Reserved!
+MIT License
+
+Copyright (c) 2017 Cătălin Anghel-Ursu (https://github.com/Madness2aMaze/Tic-Tac-Toe-Web-Game)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE. -->
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Merienda+One" rel="stylesheet">
+  <title>Build a Tic-Tac-Toe Game</title>
+</head>
+
+<body>
+  <div class="container">
+    <div class="title text-center">
+      <div class="row justify-content-center">
+        <div class="col-0 align-self-center">
+          <p class="t">T</p>
+        </div>
+        <div class="col-0 ic-ac-oe">
+          <div class="ic col align-self-center">
+            <p>ic</p>
+          </div>
+          <div class="ac col align-self-center">
+            <p>ac</p>
+          </div>
+          <div class="oe col align-self-center">
+            <p>oe</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="board">
+      <div class="curtain text-center">
+        <h1 class="play"><i class="fa fa-play" aria-hidden="true"></i></h1>
+      </div>
+      <div id="screen" class="invisible">
+        <div class="choose invisible">
+          <div class="row justify-content-center">
+            <div class="col-0 align-self-center">
+              <div id="" class="cross button text-center">
+                <p>X</p>
+              </div>
+            </div>
+            <div class="question col-0 align-self-center">
+              <i class="fa fa-question" aria-hidden="true"></i>
+            </div>
+            <div class="col-0 align-self-center">
+              <div id="" class="zero button text-center">
+                <p>O</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="">
+        <table class="checkers">
+          <tbody>
+            <tr>
+              <td id ="0" class="cell" data-col="0" data-row="0" role="button"></td>
+              <td id ="1" class="cell" data-col="1" data-row="0" role="button"></td>
+              <td id ="2" class="cell" data-col="2" data-row="0" role="button"></td>
+            </tr>
+            <tr>
+              <td id ="3" class="cell" data-col="0" data-row="1" role="button"></td>
+              <td id ="4" class="cell" data-col="1" data-row="1" role="button"></td>
+              <td id ="5" class="cell" data-col="2" data-row="1" role="button"></td>
+            </tr>
+            <tr>
+              <td id ="6" class="cell" data-col="0" data-row="2" role="button"></td>
+              <td id ="7" class="cell" data-col="1" data-row="2" role="button"></td>
+              <td id ="8" class="cell" data-col="2" data-row="2" role="button"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="score-board row justify-content-center invisible">
+      <div class="col-0 player-hum players">
+        <div class="row">
+          <div class="col">
+            <p><i class="fa fa-user" aria-hidden="true"></i></p>
+          </div>
+          <div class="col score-hum">
+            <p id="hum">0</p>
+          </div>
+        </div>
+      </div>
+      <div class="turn col- align-self-center text-center">
+        <div id="x-turn">
+          <p class="symbol">X</p>
+        </div>
+        <div id="o-turn">
+          <p class="symbol">O</p>
+        </div>
+        <div id="g-over">
+          <p>Game Over!</p>
+        </div>
+      </div>
+      <div class="col-0 player-ai players">
+        <div class="row">
+          <div class="col score-ai">
+            <p id="ai">0</p>
+          </div>
+          <div class="col">
+            <p><i class="fa fa-laptop" aria-hidden="true"></i></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
