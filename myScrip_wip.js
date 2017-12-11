@@ -26,14 +26,19 @@ SOFTWARE. */
 $(document).ready(function() {
   var onBoard = [0, 1, 2, 3, 4, 5, 6, 7, 8],
       uiScoreBoard = $(".score-board"),
-      uiSwoosh = $("<audio></audio>"), 
+      uiSwoosh = $("<audio></audio>"),
+      uiCheckers = $(".checkers"),
+      uiWinnerX = $(".winner-x"),
+      uiWinnerO = $(".winner-o"),
       uiHuman = $(".player-hum"),
       uiAi = $(".player-ai"),
       uiGameOver = $("#g-over"),
+      uiEndGame = $(".endgame"),
       uiPlayers = $(".players"),
       uiCurtain = $(".curtain"),
       uiXColor = $(".x-color"),
       uiOColor = $(".o-color"),
+      uiWinner = $(".win-bg"),
       uiSymbol = $(".symbol"),
       uiScreen = $("#screen"),
       uiChoose = $(".choose"),
@@ -43,8 +48,9 @@ $(document).ready(function() {
       uiAiScore = $("#ai"),
       uiCross = $(".cross"),
       uiZero = $(".zero"),
-      uiPlay = $(".play"),      
-      uiCell = $(".cell"),      
+      uiDraw = $(".draw"),
+      uiPlay = $(".play"),
+      uiCell = $(".cell"),
       cell = {
         "0": "#0",
         "1": "#1",
@@ -70,6 +76,7 @@ $(document).ready(function() {
     uiChoose.removeClass("invisible");
     uiCross.addClass("left-slide-in");
     uiZero.addClass("right-slide-in");
+    uiDraw.hide();
   });
 
   //choosing to play with "X"
@@ -87,7 +94,7 @@ $(document).ready(function() {
     uiXturn.addClass("fade-in");
     uiSymbol.addClass("blink");
     uiScoreBoard.removeClass("invisible");
-    uiPlayers.addClass("depress");
+    uiPlayers.addClass("sink");
   });
 
   //choosing to play with "O"
@@ -105,20 +112,18 @@ $(document).ready(function() {
     uiOturn.addClass("fade-in");
     uiSymbol.addClass("blink");
     uiScoreBoard.removeClass("invisible");
-    uiPlayers.addClass("depress");
+    uiPlayers.addClass("sink");
   });
-  
- 
+
   // looping through cells based on id
   $.each(onBoard, function(i) {
-    var uiCells = $(cell[i]);    
+    var uiCells = $(cell[i]);
 
     uiCells.click(function() {
       if (uiCells.html() === "X" || uiCells.html() === "O") {
         //do nothing
       } else {
-        if (human === "X" || human === "O")
-          uiCells.addClass("player-color");
+        if (human === "X" || human === "O") uiCells.addClass("player-color");
       }
       if (uiCells.html() === "X" || uiCells.html() === "O") {
         //do nothing
@@ -133,7 +138,6 @@ $(document).ready(function() {
           uiOturn.addClass("fade-in");
           uiOturn.hide();
         }
-        
       }
     });
   });
@@ -167,16 +171,16 @@ $(document).ready(function() {
        offBoard[8] === player)
     )
       return true;
-    else
-      return false;
+    else return false;
   }
-  
+
   //resets the game
   function reset() {
     round = 0;
     onBoard = [0, 1, 2, 3, 4, 5, 6, 7, 8];
     uiCell.html("");
     uiCurtain.css("display", "block");
+    uiCurtain.addClass("reboot");
     uiPlay.css("display", "block");
     uiScreen.addClass("invisible");
     uiScreen.css("height", "450px");
@@ -186,13 +190,14 @@ $(document).ready(function() {
     uiCross.removeClass("left-slide-out");
     uiZero.removeClass("right-slide-out");
     uiCell.removeClass("visible");
-    uiCell.removeClass("player-color"); 
+    uiCell.removeClass("invisible");
+    uiCell.removeClass("player-color");
+    uiCell.css("display", "");
+    uiCheckers.css("display", "");
     uiZero.removeClass("player-color");
-    uiCross.removeClass("player-color");    
-    uiXturn.hide();
-    uiOturn.hide();
-    uiGameOver.show();
-    uiGameOver.addClass("fade-in");
+    uiCross.removeClass("player-color");
+    uiEndGame.addClass("invisible");
+    uiWinner.removeClass("fade-in");
   }
 
   function move(el, player) {
@@ -212,9 +217,25 @@ $(document).ready(function() {
         return;
       } else if (round > 8) {
         setTimeout(function() {
-          alert("Hey at least is was a Draw :)");
-          reset();
+          //alert("Hey at least is was a Draw :)");
+          uiCheckers.css("display", "none");
+          uiChoose.addClass("invisible");
+          uiScreen.addClass("invisible");
+          uiScreen.css("height", "0px");
+          uiCell.css("display", "none");
+          uiEndGame.removeClass("invisible");
+          uiWinner.addClass("fade-in");
+          uiXturn.hide();
+          uiOturn.hide();
+          uiGameOver.show();
+          uiGameOver.addClass("fade-in");
+          uiWinnerX.hide();
+          uiWinnerO.hide();
+          uiDraw.show();
         }, 600);
+        setTimeout(function() {
+          reset();
+        }, 3000);
         return;
       } else {
         round++;
@@ -224,28 +245,47 @@ $(document).ready(function() {
           $(selector).html(ai);
           if (ai === "X") {
             uiXturn.hide();
-            uiOturn.show();            
+            uiOturn.show();
           } else if (ai === "O") {
             uiXturn.show();
             uiOturn.hide();
           }
-          
         }
         timeoutID = window.setTimeout(aiMove, 300);
         onBoard[index] = ai;
         if (winning(onBoard, ai)) {
           setTimeout(function() {
-            alert("This time You Lost");
+            //alert("This time You Lost");
+            uiCheckers.css("display", "none");
+            uiChoose.addClass("invisible");
+            uiScreen.addClass("invisible");
+            uiScreen.css("height", "0px");
+            uiCell.css("display", "none");
+            uiEndGame.removeClass("invisible");
+            uiWinner.addClass("fade-in");
+            uiXturn.hide();
+            uiOturn.hide();
+            uiGameOver.show();
+            uiGameOver.addClass("fade-in");
+            if (ai === "X") {
+              uiWinnerO.hide();
+              uiWinnerX.show();
+            } else if (ai === "O") {
+              uiWinnerX.hide();
+              uiWinnerO.show();
+            }
             uiScore++;
             uiAiScore.text(uiScore);
-            reset();
           }, 600);
+          setTimeout(function() {
+            reset();
+          }, 3000);
           return;
         }
       }
     }
   }
-  
+
   function empty(offBoard) {
     return offBoard.filter(c => c != human && c != ai);
   }
