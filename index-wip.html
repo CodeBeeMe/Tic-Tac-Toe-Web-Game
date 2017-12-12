@@ -75,25 +75,57 @@ SOFTWARE. -->
         </div>
       </div>
       <div class="">
-        <table class="checkers">
+        <table class="checkers text-center">
           <tbody>
             <tr>
-              <td id ="0" class="cell" data-col="0" data-row="0" role="button"></td>
-              <td id ="1" class="cell" data-col="1" data-row="0" role="button"></td>
-              <td id ="2" class="cell" data-col="2" data-row="0" role="button"></td>
+              <td id="0" class="cell" data-col="0" data-row="0" role="button"></td>
+              <td id="1" class="cell" data-col="1" data-row="0" role="button"></td>
+              <td id="2" class="cell" data-col="2" data-row="0" role="button"></td>
             </tr>
             <tr>
-              <td id ="3" class="cell" data-col="0" data-row="1" role="button"></td>
-              <td id ="4" class="cell" data-col="1" data-row="1" role="button"></td>
-              <td id ="5" class="cell" data-col="2" data-row="1" role="button"></td>
+              <td id="3" class="cell" data-col="0" data-row="1" role="button"></td>
+              <td id="4" class="cell" data-col="1" data-row="1" role="button"></td>
+              <td id="5" class="cell" data-col="2" data-row="1" role="button"></td>
             </tr>
             <tr>
-              <td id ="6" class="cell" data-col="0" data-row="2" role="button"></td>
-              <td id ="7" class="cell" data-col="1" data-row="2" role="button"></td>
-              <td id ="8" class="cell" data-col="2" data-row="2" role="button"></td>
+              <td id="6" class="cell" data-col="0" data-row="2" role="button"></td>
+              <td id="7" class="cell" data-col="1" data-row="2" role="button"></td>
+              <td id="8" class="cell" data-col="2" data-row="2" role="button"></td>
             </tr>
           </tbody>
         </table>
+      </div>
+      <div class="endgame invisible">
+        <div class="winner-x winner">
+          <div class="win-bg">
+            <div class="row">
+              <p class="big">X</p>
+            </div>
+            <div class="row">
+              <p class="win">winner!</p>
+            </div>
+          </div>
+        </div>
+        <div class="winner-o winner">
+          <div class="win-bg">
+            <div class="row">
+              <p class="big">O</p>
+            </div>
+            <div class="row">
+              <p class="win">winner!</p>
+            </div>
+          </div>
+        </div>
+        <div class="draw winner">
+          <div class="win-bg">
+            <div class="row">
+              <p class="draw-big">XO</p>
+            </div>
+            <div class="row">
+              <p class="win">draw!</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="score-board row justify-content-center invisible">
@@ -128,6 +160,9 @@ SOFTWARE. -->
           </div>
         </div>
       </div>
+    </div>
+    <div class="footer col align-self-end text-center">
+      <h5>Designed and coded by <a href="https://github.com/Madness2aMaze" target="_blank" id="footbar" title="©2017 Cătălin Anghel-Ursu @Madness2aMaze - All Rights Reserved">Madness2aMaze &copy2017 - All Rights Reserved</a> | <a href="http://codepen.io/Madness2aMaze/" title="More of my works" target="_blank"><i class="fa fa-codepen" id="icon-cpen" aria-hidden="true"></i></a> | <a href="https://www.freecodecamp.com/" target="_blank" title="FreeCodeCamp" ><i class="fa fa-free-code-camp" id="icon-fcc" aria-hidden="true"></i></a></h5>
     </div>
   </div>
 </body>
