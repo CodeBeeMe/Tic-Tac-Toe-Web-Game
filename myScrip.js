@@ -42,6 +42,7 @@ $(document).ready(function() {
       uiSymbol = $(".symbol"),
       uiScreen = $("#screen"),
       uiChoose = $(".choose"),
+      uiFooter = $(".footer"),
       uiOturn = $("#o-turn"),
       uiXturn = $("#x-turn"),
       uiHumScore = $("#hum"),
@@ -88,6 +89,7 @@ $(document).ready(function() {
     uiZero.addClass("right-slide-out");
     uiScreen.addClass("invisible");
     uiScreen.css("height", "0px");
+    uiFooter.css("margin-top", "129px");
     uiCell.addClass("visible");
     uiGameOver.hide();
     uiOturn.hide();
@@ -106,18 +108,23 @@ $(document).ready(function() {
     uiZero.addClass("right-slide-out");
     uiScreen.addClass("invisible");
     uiScreen.css("height", "0px");
+    uiFooter.css("margin-top", "129px");
     uiCell.addClass("visible");
     uiGameOver.hide();
     uiXturn.hide();
     uiOturn.addClass("fade-in");
     uiSymbol.addClass("blink");
     uiScoreBoard.removeClass("invisible");
-    uiPlayers.addClass("sink");
+    uiPlayers.addClass("sink");    
   });
 
   // looping through cells based on id
   $.each(onBoard, function(i) {
     var uiCells = $(cell[i]);
+    
+    if (winning(onBoard, ai)) {
+      uiCells.css("background", "#fff");
+    }
 
     uiCells.click(function() {
       if (uiCells.html() === "X" || uiCells.html() === "O") {
@@ -198,6 +205,7 @@ $(document).ready(function() {
     uiCross.removeClass("player-color");
     uiEndGame.addClass("invisible");
     uiWinner.removeClass("fade-in");
+    uiWinner.removeClass("fade-out");
   }
 
   function move(el, player) {
@@ -225,6 +233,9 @@ $(document).ready(function() {
           uiCell.css("display", "none");
           uiEndGame.removeClass("invisible");
           uiWinner.addClass("fade-in");
+          setTimeout(function() {
+            uiWinner.addClass("fade-out");
+          }, 2400);
           uiXturn.hide();
           uiOturn.hide();
           uiGameOver.show();
@@ -235,7 +246,7 @@ $(document).ready(function() {
         }, 600);
         setTimeout(function() {
           reset();
-        }, 3000);
+        }, 3500);
         return;
       } else {
         round++;
@@ -263,6 +274,9 @@ $(document).ready(function() {
             uiCell.css("display", "none");
             uiEndGame.removeClass("invisible");
             uiWinner.addClass("fade-in");
+            setTimeout(function() {
+              uiWinner.addClass("fade-out");
+            }, 2400);
             uiXturn.hide();
             uiOturn.hide();
             uiGameOver.show();
@@ -279,7 +293,7 @@ $(document).ready(function() {
           }, 600);
           setTimeout(function() {
             reset();
-          }, 3000);
+          }, 3500);
           return;
         }
       }
